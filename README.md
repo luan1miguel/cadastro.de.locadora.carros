@@ -1,5 +1,5 @@
 # cadastro.de.locadora.carros
 Ola meu nome e Luan miguel
 esse é um projeto de um cadastro para uma locadora de carro
-o qual fiz como um trabalho para a facudade
+o qual fiz como um trabalho para a faculdade
 escrito em linguagem C
