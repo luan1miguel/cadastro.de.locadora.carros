@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1621001441 source:c:\users\luan\documents\pim2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
