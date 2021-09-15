@@ -35,7 +35,7 @@ struct CLIENTE{
     cad_carro Carros;
     tp_data dta_nasc;
 
-}Cliente[50];
+}Cliente[30];
 
 struct pessoa_juridica{
     char nfantasia[50];
@@ -44,6 +44,49 @@ struct pessoa_juridica{
     ende moradia;
 
 }jur;
+void menu();
+void cad_cli(),pes_jur(),imp_cli(),imp_jur();
+int main()
+{
+    int opcao;
+    int qtd_cliente=-1;
+    int qtd_jur=-1;
+    char resp;
+
+
+    setlocale(LC_ALL, "Portuguese"); //Habilita a acentuação para o português
+    menu();
+
+    do{
+        menu();
+        scanf("%d", &opcao);
+        switch(opcao){
+        case 1:
+
+                qtd_cliente++;
+                cad_cli(qtd_cliente);
+
+            break;
+        case 2:
+            imp_cli(qtd_cliente);
+            break;
+        case 3:
+            qtd_jur++;
+            pes_jur(qtd_jur);
+            break;
+        case 4:
+            imp_jur(qtd_jur);
+            break;
+        case 0:
+            printf("Sistema finalizado!! \n");
+            exit(1);
+            break;
+        default:
+            menu();
+        }
+    } while (opcao!=4);
+    return 0;
+}
 
 void menu(){
 
@@ -57,84 +100,106 @@ void menu(){
     printf("0 - sair\n");
 
 }
-
 void cad_cli(int pos){
+    FILE **fp;
+    fp =fopen("cadastro.txt","a");
     system("cls");
     printf("CADASTRO DE CLIENTE \n");//RECEBE O NOME COMPLETO
     printf("Nome:");
-    fflush(stdin);
+    gets(stdin);
     fgets(Cliente[pos].nome, 40, stdin);
+    fprintf(fp,"%s",Cliente[pos].nome);
     fflush(stdin);
     printf("CPF:");
     scanf("%d", &Cliente[pos].cpf);//RECEBE O CPF
-    fflush(stdin);
+    fprintf(fp,"%d",Cliente[pos].cpf);
     printf("informe o RG:");
     scanf("%d",&Cliente[pos].rg);
     fflush(stdin);
+    fprintf(fp,"%d",Cliente[pos].rg);
     printf("informe a CNH:");
     scanf("%d",&Cliente[pos].cnh);
     fflush(stdin);
+    fprintf(fp,"%d",Cliente[pos].cnh);
     printf("informe sua cidade:");
     fgets(Cliente[pos].moradia.cidade,40,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",Cliente[pos].moradia.cidade);
     printf("informe sua bairro:");
     fgets(Cliente[pos].moradia.bairro,40,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",Cliente[pos].moradia.bairro);
     printf("informe nome da sua rua:");
     fgets(Cliente[pos].moradia.rua,20,stdin);
     fflush(stdin);
+    fprintf(fp,"%d",Cliente[pos].moradia.rua);
     printf("CEP:");
     fgets(Cliente[pos].moradia.cep,20,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",Cliente[pos].moradia.rua);
     printf("Numero:");
     fgets(Cliente[pos].moradia.numero,4,stdin);
     fflush(stdin);
+    fprintf(fp,"%d",Cliente[pos].moradia.numero);
     printf("DATA DE NASCIMENTO (DD MM YYYY):");
     scanf ("%d %d %d", &Cliente[pos].dta_nasc.dia, &Cliente[pos].dta_nasc.mes, &Cliente[pos].dta_nasc.ano);//RECEBE DATA NASCIMENTO
     fflush(stdin);
+    fprintf(fp,"%d %d %d",Cliente[pos].dta_nasc.dia, &Cliente[pos].dta_nasc.mes, &Cliente[pos].dta_nasc.ano);
     printf("carro alugado:");
     fflush(stdin);
     scanf("%s",&Cliente[pos].Carros.marca);
+    fprintf(fp,"%d",Cliente[pos].Carros.marca);
     printf("placa do carro:");
     fflush(stdin);
     scanf("%s",&Cliente[pos].Carros.placa);
-
+    fprintf(fp,"%d",Cliente[pos].Carros.placa);
+    fclose(fp);
 }
-
 void pes_jur(int jus){
-
+    FILE **fp;
+    fp= fopen("pesjur.txt","a+");
     system("cls");
     printf("nome fantasia de sua empresa: \n ");
     scanf("%s",jur.nfantasia);
     fflush(stdin);
+    fprintf(fp,"%s",jur.nfantasia);
     printf("informe a razao social: \n");
     fgets(jur.rsocial,30,stdin);
+    fflush(stdin);
+    fprintf(fp,"%s",jur.rsocial);
     printf("informe o CNPJ \n");
     scanf("%d",jur.cnpj);
     fflush(stdin);
+    fprintf(fp,"%s",jur.cnpj);
     printf("informe a cidade de sua empresa:");
     fgets(jur.moradia.cidade,30,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",jur.moradia.cidade);
     printf("informe o bairro da sua empresa:");
     fgets(jur.moradia.bairro,40,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",jur.moradia.bairro);
     printf("Rua de sua empresa:");
     fgets(jur.moradia.rua,20,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",jur.moradia.rua);
     printf("CEP:");
     fgets(jur.moradia.cep,20,stdin);
     fflush(stdin);
+    fprintf(fp,"%s",jur.moradia.cep);
     printf("Numero:");
     fgets(jur.moradia.numero,20,stdin);
     fflush(stdin);
-
-
+    fprintf(fp,"%d",jur.moradia.numero);
+    fclose(fp);
 }
 void imp_cli(int pos){
     int i;
+    FILE **fp;
     system("cls");
     printf("CLIENTES CADASTRADOS \n");
     for(i=0; i<=pos;i++){
+        fp=fopen("pesjur.txt","r");
         printf("\n");
         printf("Nome: %s", Cliente[i].nome);
         printf("\n");
@@ -164,7 +229,6 @@ void imp_cli(int pos){
     printf("\n");
     system("PAUSE");
 }
-
 void imp_jur(int ju){
     int y;
     system("cls");
@@ -188,42 +252,4 @@ void imp_jur(int ju){
 
 
     }
-
-
-}
-int main()
-{
-    int opcao;
-    int qtd_cliente=-1;
-    int qtd_jur=-1;
-
-    setlocale(LC_ALL, "Portuguese"); //Habilita a acentuação para o português
-    menu();
-
-    do{
-        menu();
-        scanf("%d", &opcao);
-        switch(opcao){
-        case 1:
-            qtd_cliente++;
-            cad_cli(qtd_cliente);
-            break;
-        case 2:
-            imp_cli(qtd_cliente);
-            break;
-        case 3:
-            qtd_jur++;
-            pes_jur(qtd_jur);
-            break;
-        case 4:
-            imp_jur(qtd_jur);
-            break;
-        case 0:
-            printf("Sistema finalizado!! \n");
-            break;
-        default:
-            menu();
-        }
-    } while (opcao!=4);
-    return 0;
 }
