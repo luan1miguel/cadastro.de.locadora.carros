@@ -8,7 +8,7 @@ struct DMA{
     int ano;
 };
 typedef struct DMA tp_data;
-typedef struct DMA tp_data;
+typedef struct DMA tp_data;/* define a estrutura de data com*/
 
 struct endereco{
     char rua[40];
@@ -17,14 +17,14 @@ struct endereco{
     int numero [4];
     int cep [11];
 
-}typedef ende;
+}typedef ende;/*define a estrutura de endereço com */
 struct cadastro_Carros{
     int marca[30];
     char cor[25];
     char placa [7];
     char modelo[40];
 
-}typedef cad_carro;
+}typedef cad_carro;/*define as variaveis usadas para cadastro de carros*/
 
 struct CLIENTE{
     char nome[50];
@@ -35,7 +35,8 @@ struct CLIENTE{
     cad_carro Carros;
     tp_data dta_nasc;
 
-}Cliente[30];
+}Cliente[30];/*define as variaveis usadas para cadastro de clientes*/
+
 
 struct pessoa_juridica{
     char nfantasia[50];
@@ -43,9 +44,11 @@ struct pessoa_juridica{
     int cnpj[10];
     ende moradia;
 
-}jur;
+}jur;/*define as variaveis usadas para cadastro de clientes do tipo pessoa juridica*/
+
 void menu();
-void cad_cli(),pes_jur(),imp_cli(),imp_jur();
+void cad_cli(),pes_jur(),imp_cli(),imp_jur();/*chamas as funções que estão definidas no final do codigo*/
+
 int main()
 {
     int opcao;
@@ -85,7 +88,7 @@ int main()
             menu();
         }
     } while (opcao!=4);
-    return 0;
+    return 0;//chama a função menu e utiliza do case para especificar qual função sera escolhida
 }
 
 void menu(){
@@ -99,16 +102,16 @@ void menu(){
     printf("4 - consulta de empresa \n");
     printf("0 - sair\n");
 
-}
+}//função de menu
 void cad_cli(int pos){
-    FILE **fp;
-    fp =fopen("cadastro.txt","a");
+    FILE **fp;//define o ponteiro para o arquivo
+    fp =fopen("cadastro.txt","a");//abre o arquivo do tipo txt para salvar
     system("cls");
     printf("CADASTRO DE CLIENTE \n");//RECEBE O NOME COMPLETO
     printf("Nome:");
     gets(stdin);
     fgets(Cliente[pos].nome, 40, stdin);
-    fprintf(fp,"%s",Cliente[pos].nome);
+    fprintf(fp,"%s",Cliente[pos].nome);// aponta o fp como local para gravação do nome que sera digitado
     fflush(stdin);
     printf("CPF:");
     scanf("%d", &Cliente[pos].cpf);//RECEBE O CPF
@@ -153,16 +156,16 @@ void cad_cli(int pos){
     fflush(stdin);
     scanf("%s",&Cliente[pos].Carros.placa);
     fprintf(fp,"%d",Cliente[pos].Carros.placa);
-    fclose(fp);
-}
+    fclose(fp);//fecha o arquivo
+}//função criada para o cadastro de clientes
 void pes_jur(int jus){
-    FILE **fp;
-    fp= fopen("pesjur.txt","a+");
+    FILE **fp;//define 1 arquivo com ponteiro
+    fp= fopen("pesjur.txt","a+");//atraves do ponteiro indica a abertura de 1 arquivo txt, para gravação de texto
     system("cls");
     printf("nome fantasia de sua empresa: \n ");
     scanf("%s",jur.nfantasia);
     fflush(stdin);
-    fprintf(fp,"%s",jur.nfantasia);
+    fprintf(fp,"%s",jur.nfantasia);//indica atraves do ponteiro que onde o que sera gravado
     printf("informe a razao social: \n");
     fgets(jur.rsocial,30,stdin);
     fflush(stdin);
@@ -191,15 +194,15 @@ void pes_jur(int jus){
     fgets(jur.moradia.numero,20,stdin);
     fflush(stdin);
     fprintf(fp,"%d",jur.moradia.numero);
-    fclose(fp);
-}
+    fclose(fp);//fecha o arquivo
+}//função de cadastro para pessoa juridica
 void imp_cli(int pos){
     int i;
-    FILE **fp;
+    FILE **fp;//ponteiro para o arquivo
     system("cls");
     printf("CLIENTES CADASTRADOS \n");
-    for(i=0; i<=pos;i++){
-        fp=fopen("pesjur.txt","r");
+    for(i=0; i<=pos;i++){//looping nescessario para ler caracter a caracter do arquivo
+        fp=fopen("pesjur.txt","r");//indica o arquivo que deve ser aberto para leitura
         printf("\n");
         printf("Nome: %s", Cliente[i].nome);
         printf("\n");
@@ -228,7 +231,7 @@ void imp_cli(int pos){
     }
     printf("\n");
     system("PAUSE");
-}
+}//função que ira mostrar na tela todo os cadastro.
 void imp_jur(int ju){
     int y;
     system("cls");
